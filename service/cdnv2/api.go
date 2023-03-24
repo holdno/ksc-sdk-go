@@ -50,6 +50,23 @@ func (c *Cdnv2) GetClientRequestDataGetRequest(input *map[string]interface{}) (r
 	return
 }
 
+func (c *Cdnv2) GetRealTimeHitRateDataPostRequest(input *map[string]interface{}) (req *request.Request, output *map[string]interface{}) {
+	op := &request.Operation{
+		Name:       "GetRealTimeHitRateData",
+		HTTPMethod: "GET",
+		HTTPPath:   "/2020-06-30/statistics/GetRealTimeHitRateData",
+	}
+
+	if input == nil {
+		input = &map[string]interface{}{}
+	}
+
+	output = &map[string]interface{}{}
+	req = c.newRequest(op, input, output)
+
+	return
+}
+
 // GetClientRequestDataGet API operation for cdnv2.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
@@ -300,5 +317,11 @@ func (c *Cdnv2) GetServerDataPostWithContext(ctx aws.Context, input *map[string]
 	req, out := c.GetServerDataPostRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+
+func (c *Cdnv2) GetRealTimeHitRateData(input *map[string]interface{}) (*map[string]interface{}, error) {
+	req, out := c.GetRealTimeHitRateDataPostRequest(input)
 	return out, req.Send()
 }
