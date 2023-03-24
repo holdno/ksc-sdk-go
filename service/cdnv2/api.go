@@ -68,6 +68,24 @@ func (c *Cdnv2) GetRealTimeHitRateDataPostRequest(input *map[string]interface{})
 	return
 }
 
+func (c *Cdnv2) GetReqHitRateDataPostRequest(input *map[string]interface{}) (req *request.Request, output *map[string]interface{}) {
+	op := &request.Operation{
+		Name:       "GetReqHitRateData",
+		HTTPMethod: "POST",
+		HTTPPath:   "/2020-06-30/statistics/GetReqHitRateData",
+	}
+
+	if input == nil {
+		input = &map[string]interface{}{}
+	}
+
+	output = &map[string]interface{}{}
+	req = c.newRequest(op, input, output)
+	req.HTTPRequest.Header.Set("Content-Type", "application/json; charset=utf-8")
+	
+	return
+}
+
 // GetClientRequestDataGet API operation for cdnv2.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
@@ -326,3 +344,9 @@ func (c *Cdnv2) GetRealTimeHitRateData(input *map[string]interface{}) (*map[stri
 	req, out := c.GetRealTimeHitRateDataPostRequest(input)
 	return out, req.Send()
 }
+
+func (c *Cdnv2) GetReqHitRateData(input *map[string]interface{}) (*map[string]interface{}, error) {
+	req, out := c.GetReqHitRateDataPostRequest(input)
+	return out, req.Send()
+}
+
