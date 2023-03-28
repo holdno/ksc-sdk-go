@@ -68,6 +68,24 @@ func (c *Cdnv2) GetRealTimeHitRateDataPostRequest(input *map[string]interface{})
 	return
 }
 
+func (c *Cdnv2) GetFlowHitRateDataPostRequest(input *map[string]interface{}) (req *request.Request, output *map[string]interface{}) {
+	op := &request.Operation{
+		Name:       "GetFlowHitRateData",
+		HTTPMethod: "POST",
+		HTTPPath:   "/2020-06-30/statistics/GetFlowHitRateData",
+	}
+
+	if input == nil {
+		input = &map[string]interface{}{}
+	}
+
+	output = &map[string]interface{}{}
+	req = c.newRequest(op, input, output)
+	req.HTTPRequest.Header.Set("Content-Type", "application/json; charset=utf-8")
+	
+	return
+}
+
 func (c *Cdnv2) GetReqHitRateDataPostRequest(input *map[string]interface{}) (req *request.Request, output *map[string]interface{}) {
 	op := &request.Operation{
 		Name:       "GetReqHitRateData",
@@ -350,3 +368,7 @@ func (c *Cdnv2) GetReqHitRateData(input *map[string]interface{}) (*map[string]in
 	return out, req.Send()
 }
 
+func (c *Cdnv2) GetFlowHitRateData(input *map[string]interface{}) (*map[string]interface{}, error) {
+	req, out := c.GetFlowHitRateDataPostRequest(input)
+	return out, req.Send()
+}
